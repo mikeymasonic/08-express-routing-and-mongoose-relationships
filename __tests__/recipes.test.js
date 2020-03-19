@@ -5,8 +5,9 @@ const app = require('../lib/app');
 const connect = require('../lib/utils/connect');
 const mongoose = require('mongoose');
 const Recipe = require('../lib/models/Recipe');
+const Event = require('../lib/models/Event');
 
-describe('app routes', () => {
+describe('recipe routes', () => {
   beforeAll(() => {
     connect();
   });
@@ -86,6 +87,13 @@ describe('app routes', () => {
       ],
     });
 
+    await Event.create([
+      { recipeId: recipe.id, dateOfEvent: Date.now(), rating: 3 },
+      { recipeId: recipe.id, dateOfEvent: Date.now(), rating: 2 },
+      { recipeId: recipe.id, dateOfEvent: Date.now(), rating: 3 },
+      { recipeId: recipe.id, dateOfEvent: Date.now(), rating: 5 }
+    ]);
+
     return request(app)
       .get(`/api/v1/recipes/${recipe._id}`)
       .then(res => {
@@ -139,6 +147,7 @@ describe('app routes', () => {
         });
       });
   });
+
   it('deletes a recipe by id', async() => {
     const recipe = await Recipe.create({
       name: 'what dis falafel',

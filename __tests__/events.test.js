@@ -116,7 +116,7 @@ describe('event routes', () => {
           _id: expect.any(String),
           recipeId: {
             _id: expect.any(String),
-            name: 'cookies',
+            name: 'falafel',
             ingredients: [
               { _id: expect.any(String), name: 'garbanzo beans', amount: 12, measurement: 'ounce' }
             ],
@@ -139,7 +139,7 @@ describe('event routes', () => {
 
   it('updates an event by id', async() => {
     const recipe = await Recipe.create({
-      name: 'cookies',
+      name: 'falafel',
       ingredients: [
         { name: 'garbanzo beans', amount: 12, measurement: 'ounce' }
       ],
